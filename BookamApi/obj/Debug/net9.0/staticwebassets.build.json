@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "Wfw/RYneowWrTF2H2jPBYIgWJFCh1ZG1KqTQBMCpBjE=",
+  "Source": "BookamApi",
+  "BasePath": "_content/BookamApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
