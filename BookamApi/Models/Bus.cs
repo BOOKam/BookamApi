@@ -8,8 +8,8 @@ namespace BookamApi.Models
     public class Bus
     {
         public int BusId { get; set;}
-        public string BusNumber { get; set;}
+        public string BusNumber { get; set;} = string.Empty;
         public int Capacity { get; set;}
-        
+
     }
 }

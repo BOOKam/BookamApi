@@ -17,3 +17,35 @@
         public DateAndTime CreatedAt {get; set;}
         public DateAndTime UpdatedAt {get; set;}
     }
+     public class Booking
+    {
+        public int BookingId {get; set;}
+        public int UserId {get; set;}
+        public int BusId{get; set;}
+        public int RouteId {get; set;}
+        public string SeatNumber {get; set;}
+        public DateTime BookingDate {get; set;}
+        public PaymentStatus paymentStatus {get; set;}
+        public DateOnly CreatedAt {get; set;}
+        
+    }
+    public enum PaymentStatus{
+        completed,
+        pending,
+        failed,
+    }
+
+      public class Payment
+    {
+        public int TransactionId {get; set;}
+        public int BookingId {get; set;}
+        public float amount {get; set;}
+        public PaymentMethod paymentMethod {get; set;}
+        public DateTime PayedAt {get; set;}
+    }
+    
+    public enum PaymentMethod
+    {
+        Transfer,
+        Cash
+    }

@@ -11,7 +11,7 @@ namespace BookamApi.Models
         public int UserId {get; set;}
         public int BusId{get; set;}
         public int RouteId {get; set;}
-        public string SeatNumber {get; set;}
+        public string SeatNumber {get; set;} = string.Empty;
         public DateTime BookingDate {get; set;}
         public PaymentStatus paymentStatus {get; set;}
         public DateOnly CreatedAt {get; set;}
