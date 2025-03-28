@@ -11,10 +11,10 @@ namespace BookamApi.Models
         public int RouteId { get; set; }
         public string Origin {get; set;}
         public string Destination {get; set;}
-        public string Price {get; get;}
+        public string Price {get; set;}
         public string DepartureTime {get; set;}
         public string ArrivalTime {get; set;}
-        public DateAndTime CreatedAt {get; set;}
-        public DateAndTime UpdatedAt {get; set;}
+        public DateTime CreatedAt {get; set;}
+        public DateTime? UpdatedAt {get; set;}
     }
 }
