@@ -83,12 +83,16 @@ namespace BookamApi.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+#pragma warning disable CS8604 // Possible null reference argument.
                 var user = await _userManager.FindByNameAsync(login.Username);
+#pragma warning restore CS8604 // Possible null reference argument.
                 if (user == null)
                 {
                     return BadRequest("Invalid username or password");
                 }
+#pragma warning disable CS8604 // Possible null reference argument.
                 var result = await _signinManager.CheckPasswordSignInAsync(user, login.Password, false);
+#pragma warning restore CS8604 // Possible null reference argument.
                 if (!result.Succeeded)
                 {
                     return BadRequest("Invalid username or password");
