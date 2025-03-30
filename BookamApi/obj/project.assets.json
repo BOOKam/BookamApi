@@ -5175,6 +5175,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.3",
       "Microsoft.Extensions.Identity.Core >= 10.0.0-preview.2.25164.1",
       "Swashbuckle.AspNetCore >= 8.0.0",
+      "Swashbuckle.AspNetCore.SwaggerGen >= 8.0.0",
       "Swashbuckle.AspNetCore.SwaggerUI >= 8.0.0"
     ]
   },
@@ -5257,6 +5258,10 @@
             "version": "[10.0.0-preview.2.25164.1, )"
           },
           "Swashbuckle.AspNetCore": {
+            "target": "Package",
+            "version": "[8.0.0, )"
+          },
+          "Swashbuckle.AspNetCore.SwaggerGen": {
             "target": "Package",
             "version": "[8.0.0, )"
           },
