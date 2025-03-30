@@ -12,7 +12,10 @@ namespace BookamApi.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
         }
+            public DbSet<Booking> Booking {get; set;}
+            public DbSet<Payment> Payment {get; set;}
+            public DbSet<Routes> Routes {get; set;}
+            public DbSet<Bus> Bus {get; set;}
     }
 }
