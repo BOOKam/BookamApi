@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookamApi.Dtos.Account;
+using BookamApi.Interfaces;
 using BookamApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,11 @@ namespace BookamApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        public AccountController(UserManager<User> userManager)
+        private readonly ITokenService _tokenService;
+        public AccountController(UserManager<User> userManager, ITokenService tokenService)
         {
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -36,7 +39,9 @@ namespace BookamApi.Controllers
                     UserName = register.Username,
                     Email =  register.Email
                 };
+#pragma warning disable CS8604 // Possible null reference argument.
                 var createuser = await _userManager.CreateAsync(user, register.Password);
+#pragma warning restore CS8604 // Possible null reference argument.
                 if (createuser.Succeeded)
                 {
                     var roleResult = await _userManager.AddToRoleAsync(user, "User");
@@ -47,7 +52,14 @@ namespace BookamApi.Controllers
 
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User Created Successfully");
+                        return Ok(
+                            new NewUserDto
+                            {
+                                Username = user.UserName,
+                                Email = user.Email,
+                                Token = _tokenService.CreateToken(user)
+                            }
+                        );
                     } else {
                         return StatusCode(500, roleResult.Errors);
                     }
