@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookamApi.Data;
+using BookamApi.Dtos.Bus;
 using BookamApi.Interfaces;
 using BookamApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace BookamApi.Repositories
 {
@@ -25,14 +27,19 @@ namespace BookamApi.Repositories
             
         }
 
-        public Task<Bus?> DeleteAsync(int id)
+        public async Task<Bus?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var bus = await _context.Bus.FirstOrDefaultAsync(x => x.BusId == id);
+            if (bus == null) return null;
+            _context.Bus.Remove(bus);
+            await _context.SaveChangesAsync();
+            return bus;
+
         }
 
-        public Task<List<Bus>> GetAllAsync()
+        public async Task<List<Bus>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Bus.ToListAsync();
         }
 
         public async Task<Bus?> GetByIdAsync(int id)
@@ -40,14 +47,19 @@ namespace BookamApi.Repositories
             return await _context.Bus.FirstOrDefaultAsync(c => c.BusId == id);
         }
 
-        // public async Task<Bus?> GetByIdAsync(int id)
-        // {
-        //     // return await _context.Bus.ToListAsync();
-        // }
-
-        public Task<Bus?> UpdateAsync(int id, Bus busModel)
+        public async Task<Bus?> UpdateAsync(int id, UpdateBusDto updateBusDto)
         {
-            throw new NotImplementedException();
+            var bus = await _context.Bus.FirstOrDefaultAsync( x => x.BusId == id);
+
+            if (bus == null) return null;
+            bus.BusNumber = updateBusDto.BusNumber;
+            bus.ArrivalTime = updateBusDto.ArrivalTime;
+            bus.DepartureTime = updateBusDto.DepartureTime;
+            bus.Capacity = updateBusDto.Capacity;
+
+            await _context.SaveChangesAsync();
+            return bus;
+
         }
     }
 }

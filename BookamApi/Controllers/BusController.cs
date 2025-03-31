@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BookamApi.Dtos.Bus;
 using BookamApi.Interfaces;
 using BookamApi.Mappers;
+using BookamApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookamApi.Controllers
@@ -18,9 +19,13 @@ namespace BookamApi.Controllers
         {
             _busRepo = busRepo;
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById ([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var bus = await _busRepo.GetByIdAsync(id);
             if (bus == null)
             {
@@ -40,6 +45,41 @@ namespace BookamApi.Controllers
             await _busRepo.CreateAsync(bus);
 
             return CreatedAtAction(nameof(GetById), new {Id = bus.BusId}, bus.ToBusDto());
+        }
+        [HttpGet("getAll")]
+        public async Task<ActionResult<IEnumerable<Bus>>> GetAll()
+        {
+            var buses = await _busRepo.GetAllAsync();
+            if (buses == null)
+            {
+                return BadRequest("You've not created any bus yet");
+            }
+            return Ok(buses);
+
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> updateBus ([FromRoute] int id, [FromBody] UpdateBusDto updateBusDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            
+            var busModel = await _busRepo.UpdateAsync(id, updateBusDto);
+
+            if (busModel == null) return NotFound();
+            return Ok(busModel.ToBusDto());
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> deleteBus ([FromRoute] int id)
+        {
+            if(!ModelState.IsValid) return BadRequest(ModelState);
+
+            var busModel = await _busRepo.DeleteAsync(id);
+            if (busModel == null)
+            {
+                return Ok("bus deleted succesfull");
+            }
+            return StatusCode(500, "Error deleting Bus");
         }
     }
 }
