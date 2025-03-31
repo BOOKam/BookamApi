@@ -14,8 +14,6 @@ namespace BookamApi.Models
         public string Origin {get; set;} = string.Empty;
         public string Destination {get; set;} = string.Empty;
         public string Price {get; set;} = string.Empty;
-        public string DepartureTime {get; set;} = string.Empty;
-        public string ArrivalTime {get; set;} = string.Empty;
         public DateTime CreatedAt {get; set;}
         public DateTime? UpdatedAt {get; set;}
     }

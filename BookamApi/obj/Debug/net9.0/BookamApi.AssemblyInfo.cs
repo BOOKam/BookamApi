@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookamApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd5fde3678269609c80bc27b656f5a8331e824fa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdc2214993e5248481d5f8514d7d38d1aa59f3e9")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookamApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookamApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

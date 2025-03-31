@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookamApi.Models
+namespace BookamApi.Dtos.Bus
 {
-    public class Bus
+    public class BusDto
     {
-        [Key]
         public int BusId { get; set;}
         public string BusNumber { get; set;} = string.Empty;
         public int Capacity { get; set;}
         public string DepartureTime {get; set;} = string.Empty;
         public string ArrivalTime {get; set;} = string.Empty;
-
     }
 }
