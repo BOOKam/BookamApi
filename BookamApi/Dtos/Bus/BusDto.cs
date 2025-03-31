@@ -10,7 +10,7 @@ namespace BookamApi.Dtos.Bus
         public int BusId { get; set;}
         public string BusNumber { get; set;} = string.Empty;
         public int Capacity { get; set;}
-        public string DepartureTime {get; set;} = string.Empty;
-        public string ArrivalTime {get; set;} = string.Empty;
+        public DateTime DepartureTime {get; set;}
+        public DateTime ArrivalTime {get; set;} 
     }
 }

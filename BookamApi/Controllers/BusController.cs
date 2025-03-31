@@ -18,13 +18,13 @@ namespace BookamApi.Controllers
         {
             _busRepo = busRepo;
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById ([FromRoute] int id)
         {
             var bus = await _busRepo.GetByIdAsync(id);
             if (bus == null)
             {
-                return BadRequest("Invalid BusId");
+                return NotFound();
             }
             return Ok(bus.ToBusDto());
         }
