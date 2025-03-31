@@ -2,6 +2,7 @@ using System;
 using BookamApi.Data;
 using BookamApi.Interfaces;
 using BookamApi.Models;
+using BookamApi.Repositories;
 using BookamApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -55,7 +56,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+//connect interface services here
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IBusRepository, BusRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
