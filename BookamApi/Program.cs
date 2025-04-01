@@ -60,6 +60,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 //connect interface services here
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IBusRepository, BusRepository>();
+builder.Services.AddScoped<IRouteRepository, RouteRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
