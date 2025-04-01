@@ -6,6 +6,7 @@ using BookamApi.Data;
 using BookamApi.Dtos.Routes;
 using BookamApi.Interfaces;
 using BookamApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookamApi.Repositories
 {
@@ -17,29 +18,49 @@ namespace BookamApi.Repositories
             _context = context;
         }
 
-        public Task<Routes> CreateAsync(Bus busModel)
+        public async Task<Routes> CreateAsync(Routes routeModel)
         {
-            throw new NotImplementedException();
+            await _context.Routes.AddAsync(routeModel);
+            await _context.SaveChangesAsync();
+            return routeModel;
         }
 
-        public Task<Routes?> DeleteAsync(int id)
+        public async Task<Routes?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var route = await _context.Routes.FirstOrDefaultAsync(c => c.RouteId == id);
+            if (route == null)
+            {
+                return null;
+            }
+            _context.Routes.Remove(route);
+            await _context.SaveChangesAsync();
+            return route;
         }
 
-        public Task<List<Routes>> GetAllRoutesAsync()
+        public async Task<List<Routes>> GetAllRoutesAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Routes.ToListAsync();
         }
 
-        public Task<Routes?> GetByIdAsync(int id)
+        public async Task<Routes?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var route = await _context.Routes.FirstOrDefaultAsync(x => x.RouteId == id);
+            return route;
         }
 
-        public Task<Routes?> UpdateAsync(int id, UpdateRouteDto updateRouteDto)
+        public async Task<Routes?> UpdateAsync(int id, UpdateRouteDto updateRouteDto)
         {
-            throw new NotImplementedException();
+            var route = await _context.Routes.FirstOrDefaultAsync(x => x.RouteId == id);
+            if (route == null) return null;
+
+            route.Origin = updateRouteDto.Origin;
+            route.Destination = updateRouteDto.Destination;
+            route.Price = updateRouteDto.Price;
+            route.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+            return route;
+
         }
     }
 }

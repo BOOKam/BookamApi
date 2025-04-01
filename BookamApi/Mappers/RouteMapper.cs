@@ -13,6 +13,7 @@ namespace BookamApi.Mappers
         public static Routes ToRouteDto (this Routes route)
         {
             return new Routes{
+                RouteId = route.RouteId,
                 Origin = route.Origin,
                 Destination = route.Destination,
                 Price = route.Price
