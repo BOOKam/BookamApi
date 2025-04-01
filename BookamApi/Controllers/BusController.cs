@@ -58,7 +58,7 @@ namespace BookamApi.Controllers
 
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("update/{id:int}")]
         public async Task<IActionResult> updateBus ([FromRoute] int id, [FromBody] UpdateBusDto updateBusDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -69,7 +69,7 @@ namespace BookamApi.Controllers
             return Ok(busModel.ToBusDto());
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("delete/{id:int}")]
         public async Task<IActionResult> deleteBus ([FromRoute] int id)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -77,9 +77,9 @@ namespace BookamApi.Controllers
             var busModel = await _busRepo.DeleteAsync(id);
             if (busModel == null)
             {
-                return Ok("bus deleted succesfull");
+                return StatusCode(500, "Error deleting Bus");
             }
-            return StatusCode(500, "Error deleting Bus");
+            return Ok("bus deleted succesfull");
         }
     }
 }

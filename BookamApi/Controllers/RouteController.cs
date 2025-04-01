@@ -44,7 +44,7 @@ namespace BookamApi.Controllers
             return CreatedAtAction(nameof(GetById), new {Id = route.RouteId}, route.ToRouteDto());
         }
 
-        [HttpPut("update")]
+        [HttpPut("update/{id:int}")]
         public async Task<IActionResult> updateRoute ([FromRoute] int id, [FromBody] UpdateRouteDto update)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -58,8 +58,8 @@ namespace BookamApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var routeModel = await _routeRepo.DeleteAsync(id);
-            if (routeModel == null) return Ok("Route Deleted Succesfully");
-            return StatusCode(500, "Route Not Found");
+            if (routeModel == null) return StatusCode(500, "Route Not Found");
+            return Ok("Route Deleted Succesfully");
         }
 
 
