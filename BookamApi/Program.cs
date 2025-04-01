@@ -56,6 +56,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+//email service
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 //connect interface services here
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -70,7 +72,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 8;
 })
-.AddEntityFrameworkStores<AppDbContext>( );
+.AddEntityFrameworkStores<AppDbContext>( )
+.AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
 {
