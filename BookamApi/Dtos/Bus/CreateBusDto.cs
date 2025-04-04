@@ -7,6 +7,7 @@ namespace BookamApi.Dtos.Bus
 {
     public class CreateBusDto
     {
+        public int RouteId {get; set;}
         public string BusNumber { get; set;} = string.Empty;
         public int Capacity { get; set;}
         public DateTime DepartureTime {get; set;}

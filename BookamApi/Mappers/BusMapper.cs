@@ -15,7 +15,8 @@ namespace BookamApi.Mappers
                 BusNumber = createBusDto.BusNumber,
                 Capacity = createBusDto.Capacity,
                 DepartureTime = createBusDto.DepartureTime,
-                ArrivalTime = createBusDto.ArrivalTime
+                ArrivalTime = createBusDto.ArrivalTime,
+                RouteId = createBusDto.RouteId
             };
         }
         public static Bus ToBusDto (this Bus busDto)
@@ -25,7 +26,8 @@ namespace BookamApi.Mappers
                 BusNumber = busDto.BusNumber,
                 Capacity = busDto.Capacity,
                 DepartureTime = busDto.DepartureTime,
-                ArrivalTime = busDto.ArrivalTime
+                ArrivalTime = busDto.ArrivalTime,
+                RouteId = busDto.RouteId
             };
         }
     }

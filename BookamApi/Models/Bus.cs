@@ -10,6 +10,8 @@ namespace BookamApi.Models
     {
         [Key]
         public int BusId { get; set;}
+        public int RouteId {get; set;}
+        // public Routes Route {get; set;} = new Routes();
         public string BusNumber { get; set;} = string.Empty;
         public int Capacity { get; set;}
         public DateTime DepartureTime {get; set;}

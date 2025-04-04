@@ -56,6 +56,7 @@ namespace BookamApi.Repositories
             bus.ArrivalTime = updateBusDto.ArrivalTime;
             bus.DepartureTime = updateBusDto.DepartureTime;
             bus.Capacity = updateBusDto.Capacity;
+            bus.RouteId = updateBusDto.RouteId;
 
             await _context.SaveChangesAsync();
             return bus;

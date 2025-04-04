@@ -16,5 +16,6 @@ namespace BookamApi.Models
         public string Price {get; set;} = string.Empty;
         public DateTime CreatedAt {get; set;}
         public DateTime? UpdatedAt {get; set;}
+        public List<Bus> Buses {get; set;} = new List<Bus>();
     }
 }
