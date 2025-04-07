@@ -48,6 +48,14 @@ namespace BookamApi.Repositories
             return route;
         }
 
+        public async Task<Routes?> SearchAsync(string Origin, string Destination)
+        {
+            var route =  _context.Routes.AsQueryable();
+            if (Origin != null) route = route.Where(x => x.Origin == Origin);
+            if (Destination != null) route = route.Where(x => x.Destination == Destination);
+            return await route.FirstOrDefaultAsync();
+        }
+
         public async Task<Routes?> UpdateAsync(int id, UpdateRouteDto updateRouteDto)
         {
             var route = await _context.Routes.FirstOrDefaultAsync(x => x.RouteId == id);

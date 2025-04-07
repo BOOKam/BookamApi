@@ -14,5 +14,6 @@ namespace BookamApi.Interfaces
         Task<Bus> CreateAsync(Bus busModel);
         Task<Bus?> UpdateAsync(int id, UpdateBusDto updateBusDto);
         Task<Bus?> DeleteAsync(int id);
+        
     }
 }

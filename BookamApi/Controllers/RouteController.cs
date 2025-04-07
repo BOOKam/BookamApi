@@ -61,7 +61,13 @@ namespace BookamApi.Controllers
             if (routeModel == null) return StatusCode(500, "Route Not Found");
             return Ok("Route Deleted Succesfully");
         }
-
-
+        [HttpGet("search")]
+        public async Task<IActionResult> searchRoute([FromRoute] string Origin, [FromRoute] string Destination)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            var route = await _routeRepo.SearchAsync(Origin, Destination);
+            if (route == null) return NotFound("No Route");
+            return Ok(route.ToRouteDto());
+        }
     }
 }
