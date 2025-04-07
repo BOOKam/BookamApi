@@ -16,7 +16,8 @@ namespace BookamApi.Mappers
                 RouteId = route.RouteId,
                 Origin = route.Origin,
                 Destination = route.Destination,
-                Price = route.Price
+                Price = route.Price,
+                Buses = route.Buses.Select(c => c.ToBusDto()).ToList()
             };
         }
 
