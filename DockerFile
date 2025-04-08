@@ -7,11 +7,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 # Try just copying everything first
 COPY . .
-RUN dotnet restore "BookamApi/BookamApi.csproj"
-RUN dotnet build "BookamApi/BookamApi.csproj" -c Release -o /app/build
+RUN dotnet restore "BookamApi.csproj"
+RUN dotnet build "BookamApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "BookamApi/BookamApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "BookamApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
