@@ -14,6 +14,6 @@ namespace BookamApi.Interfaces
         Task<Routes> CreateAsync(Routes routeModel);
         Task<Routes?> UpdateAsync(int id, UpdateRouteDto updateRouteDto);
         Task<Routes?> DeleteAsync(int id);
-        Task<Routes?> SearchAsync(string Origin, string Destination);
+        Task<List<Routes>?> SearchAsync(string Origin, string Destination);
     }
 }

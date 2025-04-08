@@ -61,8 +61,8 @@ namespace BookamApi.Controllers
             if (routeModel == null) return StatusCode(500, "Route Not Found");
             return Ok("Route Deleted Succesfully");
         }
-        [HttpGet("search/{Origin}&&{Destination}")]
-        public async Task<IActionResult> searchRoute([FromRoute] string Origin, [FromRoute] string Destination)
+        [HttpGet("search")]
+        public async Task<IActionResult> searchRoute([FromBody] string? Origin, [FromBody] string? Destination)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var route = await _routeRepo.SearchAsync(Origin, Destination);
