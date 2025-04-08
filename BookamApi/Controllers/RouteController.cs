@@ -65,9 +65,11 @@ namespace BookamApi.Controllers
         public async Task<IActionResult> searchRoute([FromBody] string? Origin, [FromBody] string? Destination)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+#pragma warning disable CS8604 // Possible null reference argument.
             var route = await _routeRepo.SearchAsync(Origin, Destination);
+#pragma warning restore CS8604 // Possible null reference argument.
             if (route == null) return NotFound("No Route");
-            return Ok(route.ToRouteDto());
+            return Ok(route.Select(r => r.ToRouteDto()));
         }
     }
 }
