@@ -62,7 +62,7 @@ namespace BookamApi.Controllers
             return Ok("Route Deleted Succesfully");
         }
         [HttpGet("search")]
-        public async Task<IActionResult> searchRoute([FromBody] string? Origin, [FromBody] string? Destination)
+        public async Task<IActionResult> searchRoute([FromQuery] string? Origin, [FromQuery] string? Destination)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 #pragma warning disable CS8604 // Possible null reference argument.
