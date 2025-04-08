@@ -10,6 +10,7 @@ namespace BookamApi.Dtos.Bus
     {
         public int BusId { get; set;}
         [Required]
+        public int RouteId {get; set;}
         public string BusNumber { get; set;} = string.Empty;
         [Required]
         public int Capacity { get; set;}

@@ -44,7 +44,7 @@ namespace BookamApi.Repositories
 
         public async Task<Routes?> GetByIdAsync(int id)
         {
-            var route = await _context.Routes.FirstOrDefaultAsync(x => x.RouteId == id);
+            var route = await _context.Routes.Include(c => c.Buses).FirstOrDefaultAsync(x => x.RouteId == id);
             return route;
         }
 

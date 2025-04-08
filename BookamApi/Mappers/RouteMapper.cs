@@ -10,9 +10,9 @@ namespace BookamApi.Mappers
 {
     public static class RouteMapper
     {
-        public static Routes ToRouteDto (this Routes route)
+        public static RouteDto ToRouteDto (this Routes route)
         {
-            return new Routes{
+            return new RouteDto{
                 RouteId = route.RouteId,
                 Origin = route.Origin,
                 Destination = route.Destination,

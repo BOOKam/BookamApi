@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BookamApi.Migrations
 {
     /// <inheritdoc />
-    public partial class MinorChnage : Migration
+    public partial class route : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -220,17 +220,17 @@ namespace BookamApi.Migrations
                     BusNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RoutesRouteId = table.Column<int>(type: "int", nullable: true)
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bus", x => x.BusId);
                     table.ForeignKey(
-                        name: "FK_Bus_Routes_RoutesRouteId",
-                        column: x => x.RoutesRouteId,
+                        name: "FK_Bus_Routes_RouteId",
+                        column: x => x.RouteId,
                         principalTable: "Routes",
-                        principalColumn: "RouteId");
+                        principalColumn: "RouteId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -238,8 +238,8 @@ namespace BookamApi.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1bf26c49-9c23-45dd-b271-760c029c6e0c", null, "Admin", "ADMIN" },
-                    { "d790aee9-3831-4c99-a13e-8acf29dac59b", null, "User", "USER" }
+                    { "97784de1-a216-4b4d-941e-c0e15e3987e2", null, "Admin", "ADMIN" },
+                    { "ed4de489-a167-4af3-8509-feb0e63cb489", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -282,9 +282,9 @@ namespace BookamApi.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bus_RoutesRouteId",
+                name: "IX_Bus_RouteId",
                 table: "Bus",
-                column: "RoutesRouteId");
+                column: "RouteId");
         }
 
         /// <inheritdoc />

@@ -81,12 +81,9 @@ namespace BookamApi.Migrations
                     b.Property<int>("RouteId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoutesRouteId")
-                        .HasColumnType("int");
-
                     b.HasKey("BusId");
 
-                    b.HasIndex("RoutesRouteId");
+                    b.HasIndex("RouteId");
 
                     b.ToTable("Bus");
                 });
@@ -241,13 +238,13 @@ namespace BookamApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "183b1060-3b37-4785-b218-8c02070fa216",
+                            Id = "97784de1-a216-4b4d-941e-c0e15e3987e2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2efe4fc0-5e3d-4fa8-92b9-cd524026536a",
+                            Id = "ed4de489-a167-4af3-8509-feb0e63cb489",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -361,9 +358,13 @@ namespace BookamApi.Migrations
 
             modelBuilder.Entity("BookamApi.Models.Bus", b =>
                 {
-                    b.HasOne("BookamApi.Models.Routes", null)
+                    b.HasOne("BookamApi.Models.Routes", "Route")
                         .WithMany("Buses")
-                        .HasForeignKey("RoutesRouteId");
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
