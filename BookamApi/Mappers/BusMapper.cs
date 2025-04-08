@@ -10,14 +10,15 @@ namespace BookamApi.Mappers
     public static class BusMapper
     {
         public static Bus ToCreateBusDto (this CreateBusDto createBusDto)
-        {
-            return new Bus {
-                BusNumber = createBusDto.BusNumber,
-                Capacity = createBusDto.Capacity,
-                DepartureTime = createBusDto.DepartureTime,
-                ArrivalTime = createBusDto.ArrivalTime,
-            };
-        }
+{
+    return new Bus {
+        BusNumber = createBusDto.BusNumber,
+        Capacity = createBusDto.Capacity,
+        RouteId = createBusDto.RouteId,
+        DepartureTime = createBusDto.DepartureTime,
+        ArrivalTime = createBusDto.ArrivalTime,
+    };
+}
         public static BusDto ToBusDto (this Bus busDto)
         {
             return new BusDto {
