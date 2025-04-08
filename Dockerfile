@@ -4,7 +4,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+WORKDIR /src/BookamApi
 # Try just copying everything first
 COPY . .
 RUN dotnet restore "BookamApi.csproj"
