@@ -53,11 +53,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-// builder.Services.AddControllers()
-// .AddNewtonsoftJson(options =>
-// {
-//     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-// });
+
 
 
 builder.Services.AddDbContext<AppDbContext>(options => 

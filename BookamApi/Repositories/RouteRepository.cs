@@ -6,6 +6,7 @@ using BookamApi.Data;
 using BookamApi.Dtos.Routes;
 using BookamApi.Interfaces;
 using BookamApi.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookamApi.Repositories
@@ -48,7 +49,7 @@ namespace BookamApi.Repositories
             return route;
         }
 
-        public async Task<List<Routes>?> SearchAsync(string Origin, string Destination)
+        public async Task<List<Routes>?> SearchAsync([FromQuery] string Origin, [FromQuery] string Destination)
         {
             var route = _context.Routes.AsQueryable();
             if (!string.IsNullOrWhiteSpace(Origin))
