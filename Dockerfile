@@ -16,4 +16,4 @@ RUN dotnet publish "BookamApi/BookamApi.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "BookamApi/BookamApi.dll"]
+ENTRYPOINT ["dotnet", "BookamApi.dll"]
