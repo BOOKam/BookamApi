@@ -179,3 +179,5 @@ C:\Users\HP\Documents\devs\BookamApi\BookamApi\bin\Debug\net9.0\Microsoft.AspNet
 C:\Users\HP\Documents\devs\BookamApi\BookamApi\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\HP\Documents\devs\BookamApi\BookamApi\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\Users\HP\Documents\devs\BookamApi\BookamApi\bin\Debug\net9.0\Newtonsoft.Json.Bson.dll
+C:\Users\HP\Documents\devs\BookamApi\BookamApi\bin\Debug\net9.0\Npgsql.dll
+C:\Users\HP\Documents\devs\BookamApi\BookamApi\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
