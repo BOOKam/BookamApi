@@ -8,6 +8,6 @@ namespace BookamApi.Models
 {
     public class User : IdentityUser
     {
-       public float wallet {get; set;} 
+       public float wallet {get; set;} = 0; 
     }
 }
