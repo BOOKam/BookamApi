@@ -10,7 +10,7 @@ namespace BookamApi.Models
     {
         [Key]
         public int BookingId {get; set;}
-        public int UserId {get; set;}
+        public int?  UserId {get; set;}
         public int BusId{get; set;}
         public int RouteId {get; set;}
         public string SeatNumber {get; set;} = string.Empty;
