@@ -19,10 +19,11 @@ namespace BookamApi.Controllers
         private readonly ITokenService _tokenService;
         private readonly SignInManager<User> _signinManager;
         private readonly IEmailService _email;
-        public AccountController(UserManager<User> userManager, 
-        ITokenService tokenService, 
-        SignInManager<User> signInManager, 
-        IEmailService email
+        public AccountController(
+            UserManager<User> userManager, 
+            ITokenService tokenService, 
+            SignInManager<User> signInManager, 
+            IEmailService email
         )
         {
             _userManager = userManager;
@@ -61,7 +62,7 @@ namespace BookamApi.Controllers
 
                     if (roleResult.Succeeded)
                     {
-                        await SendConfirmationEmail(user.Email, user);
+                        // await SendConfirmationEmail(user.Email, user);
                         return Ok(
                             new NewUserDto
                             {
