@@ -214,7 +214,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         {
             sqlOptions.EnableRetryOnFailure(
                 maxRetryCount: 5,
-                maxRetryDelay: TimeSpan.FromSeconds(30),
+                maxRetryDelay: TimeSpan.FromSeconds(60),
                 errorCodesToAdd: null);
         });
 });
