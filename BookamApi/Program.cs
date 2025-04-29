@@ -209,13 +209,15 @@ builder.Services.AddSwaggerGen(option =>
 
 builder.Services.AddDbContext<AppDbContext>(options => 
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") + 
+    ";Pooling=true;Minimum Pool Size=1;Maximum Pool Size=20;Keepalive=30;Timeout=15;Command Timeout=60;",
      npgsqlOptionsAction: sqlOptions => 
         {
             sqlOptions.EnableRetryOnFailure(
                 maxRetryCount: 5,
-                maxRetryDelay: TimeSpan.FromSeconds(60),
+                maxRetryDelay: TimeSpan.FromSeconds(5),
                 errorCodesToAdd: null);
+        sqlOptions.CommandTimeout(60);
         });
 });
 //email service
