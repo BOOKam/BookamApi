@@ -80,7 +80,7 @@ namespace BookamApi.Controllers
 
             } catch(Exception e)
             {
-                return StatusCode(500, new { message = e.Message, stackTrace = e.StackTrace });
+                return StatusCode(500, new { message = e.Message,inner = e.InnerException?.Message, stackTrace = e.StackTrace });
             }
         }
 
