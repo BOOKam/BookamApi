@@ -276,7 +276,6 @@ builder.Services.AddAuthentication(options =>
 var app = builder.Build();
 
 // Use the CORS policy
-app.UseCors("AllowLocalhost3000");
 
 // using (var scope = app.Services.CreateScope())
 // {
@@ -301,6 +300,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowLocalhost3000");
 
 app.UseAuthentication();
 app.UseAuthorization();
