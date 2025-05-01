@@ -131,7 +131,9 @@ namespace BookamApi.Controllers
                 new { UserId = user.Id, Token = token }, protocol: HttpContext.Request.Scheme);
 
             // Encode the link to prevent XSS and other injection attacks
+#pragma warning disable CS8604 // Possible null reference argument.
             var safeLink = HtmlEncoder.Default.Encode(confirmationLink);
+#pragma warning restore CS8604 // Possible null reference argument.
 
             // Craft a more polished email subject
             var subject = "Welcome to Dot Net Tutorials! Please Confirm Your Email";
