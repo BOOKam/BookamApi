@@ -18,13 +18,15 @@ namespace BookamApi.Controllers
             });
         }
 
-        protected IActionResult Error(string errorMessage, string code = "ERROR")
+        protected IActionResult Error(string? errorMessage, Exception? e, string? code = "ERROR")
         {
             return BadRequest(new {
                 success = false,
                 error = new {
                     code,
-                    message = errorMessage
+                    message = errorMessage,
+                    inner = e?.InnerException?.Message,
+                    stackTrace = e?.StackTrace
                 }
             });
         }

@@ -148,18 +148,18 @@ namespace BookamApi.Controllers
 #pragma warning restore CS8604 // Possible null reference argument.
                 if (user == null)
                 {
-                    return BadRequest("Invalid username or password");
+                    return Error("Invalid Username or Password", null);
                 }
 #pragma warning disable CS8604 // Possible null reference argument.
                 var result = await _signinManager.CheckPasswordSignInAsync(user, login.Password, false);
 #pragma warning restore CS8604 // Possible null reference argument.
                 if (!result.Succeeded)
                 {
-                    return BadRequest("Invalid username or password");
+                    return Error("Invalid Username or Password", null);
                 }
                 var userRole = (await _userManager.GetRolesAsync(user));
 #pragma warning disable CS8604 // Possible null reference argument.
-                return Ok(
+                return Success(
                     new NewUserDto
                     {
                         Username = user.UserName,
@@ -170,11 +170,10 @@ namespace BookamApi.Controllers
 #pragma warning restore CS8604 // Possible null reference argument.
             } catch(Exception e)
             {
-                return StatusCode(500, new { message = e.Message, inner = e.InnerException?.Message, stackTrace = e.StackTrace });
+                return Error(null, e);
             }
         }
         
-
         private async Task SendConfirmationEmail(string email, User user)
         {
             // Generate the email confirmation token
