@@ -6,6 +6,7 @@ using BookamApi.Dtos.Routes;
 using BookamApi.Interfaces;
 using BookamApi.Mappers;
 using BookamApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookamApi.Controllers
@@ -19,12 +20,15 @@ namespace BookamApi.Controllers
         {
             _routeRepo = routeRepo;
         }
+
+        [Authorize(Roles = "Admin, User")]
         [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<Routes>>> GetAll()
         {
             return await _routeRepo.GetAllRoutesAsync();
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById ([FromRoute] int id)
         {
@@ -34,6 +38,7 @@ namespace BookamApi.Controllers
             return Ok(route.ToRouteDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<IActionResult> createRoute([FromBody] CreateRouteDto create)
         {
@@ -43,7 +48,7 @@ namespace BookamApi.Controllers
 
             return CreatedAtAction(nameof(GetById), new {Id = route.RouteId}, route.ToRouteDto());
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("update/{id:int}")]
         public async Task<IActionResult> updateRoute ([FromRoute] int id, [FromBody] UpdateRouteDto update)
         {
@@ -53,6 +58,7 @@ namespace BookamApi.Controllers
             return Ok(routeModel.ToRouteDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/{id:int}")]
         public async Task<IActionResult> deleteRoute([FromRoute] int id)
         {
@@ -61,6 +67,8 @@ namespace BookamApi.Controllers
             if (routeModel == null) return StatusCode(500, "Route Not Found");
             return Ok("Route Deleted Succesfully");
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("search")]
         public async Task<IActionResult> searchRoute([FromQuery] string? Origin, [FromQuery] string? Destination)
         {

@@ -20,7 +20,7 @@ namespace BookamApi.Controllers
         {
             _busRepo = busRepo;
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById ([FromRoute] int id)
         {
@@ -51,7 +51,7 @@ namespace BookamApi.Controllers
             return CreatedAtAction(nameof(GetById), new {Id = bus.BusId}, bus.ToBusDto());
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<Bus>>> GetAll()
         {
