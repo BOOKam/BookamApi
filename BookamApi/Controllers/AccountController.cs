@@ -13,7 +13,7 @@ namespace BookamApi.Controllers
 {
     [ApiController]
     [Route("api/account")]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseApiController
     {
         private readonly UserManager<User> _userManager;
         private readonly ITokenService _tokenService;
@@ -207,5 +207,9 @@ namespace BookamApi.Controllers
                 return StatusCode(500, new { message = ex.Message, details = ex.ToString() });
             }
         }
+    }
+
+    public class ApiBaseController
+    {
     }
 }
