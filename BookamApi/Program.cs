@@ -206,6 +206,15 @@ builder.Services.AddSwaggerGen(option =>
 // builder.Services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("Testing"));
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddDbContext<AppDbContext>(options => 
 {
@@ -265,6 +274,9 @@ builder.Services.AddAuthentication(options =>
 );
 
 var app = builder.Build();
+
+// Use the CORS policy
+app.UseCors("AllowLocalhost3000");
 
 // using (var scope = app.Services.CreateScope())
 // {
