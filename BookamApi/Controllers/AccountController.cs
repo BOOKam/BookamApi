@@ -32,6 +32,54 @@ namespace BookamApi.Controllers
             _email = email;
         }
 
+        [HttpPost("admin/register")]
+        public async Task<IActionResult> registerAdmin([FromBody] RegisterDto register)
+        {
+            try 
+            {
+                if(!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var admin = new User
+                {
+                    UserName = register.Username,
+                    Email = register.Email
+                };
+
+#pragma warning disable CS8604 // Possible null reference argument.
+                var createAdmin = await _userManager.CreateAsync(admin, register.Password);
+#pragma warning restore CS8604 // Possible null reference argument.
+                if (createAdmin.Succeeded)
+                {
+                    var roleResult = await _userManager.AddToRoleAsync(admin, "Admin");
+                    var userRole = (await _userManager.GetRolesAsync(admin));
+                    if (roleResult.Succeeded)
+                    {
+                        // await SendConfirmationEmail(user.Email, user);
+#pragma warning disable CS8604 // Possible null reference argument.
+                        return Ok(
+                            new NewUserDto
+                            {
+                                Username = admin.UserName,
+                                Email = admin.Email,
+                                Token = _tokenService.CreateToken(admin, userRole)
+                            }
+                        );
+#pragma warning restore CS8604 // Possible null reference argument.
+                    } else {
+                        return StatusCode(500, roleResult.Errors);
+                    }
+                } else {
+                    return StatusCode(500, createAdmin.Errors);
+                }
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, new { message = e.Message, inner = e.InnerException?.Message, stackTrace = e.StackTrace });
+            }
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult>  registerUser ([FromBody] RegisterDto register)
         {
@@ -55,6 +103,7 @@ namespace BookamApi.Controllers
                 if (createuser.Succeeded)
                 {
                     var roleResult = await _userManager.AddToRoleAsync(user, "User");
+                    var userRole = (await _userManager.GetRolesAsync(user));
 
                     /**
                     * i might need to add email verification here
@@ -63,14 +112,16 @@ namespace BookamApi.Controllers
                     if (roleResult.Succeeded)
                     {
                         // await SendConfirmationEmail(user.Email, user);
+#pragma warning disable CS8604 // Possible null reference argument.
                         return Ok(
                             new NewUserDto
                             {
                                 Username = user.UserName,
                                 Email = user.Email,
-                                Token = _tokenService.CreateToken(user)
+                                Token = _tokenService.CreateToken(user, userRole)
                             }
                         );
+#pragma warning restore CS8604 // Possible null reference argument.
                     } else {
                         return StatusCode(500, roleResult.Errors);
                     }
@@ -106,17 +157,20 @@ namespace BookamApi.Controllers
                 {
                     return BadRequest("Invalid username or password");
                 }
+                var userRole = (await _userManager.GetRolesAsync(user));
+#pragma warning disable CS8604 // Possible null reference argument.
                 return Ok(
                     new NewUserDto
                     {
                         Username = user.UserName,
                         Email = user.Email,
-                        Token = _tokenService.CreateToken(user)
+                        Token = _tokenService.CreateToken(user, userRole)
                     }
                 );
+#pragma warning restore CS8604 // Possible null reference argument.
             } catch(Exception e)
             {
-                return StatusCode(500, new { message = e.Message, stackTrace = e.StackTrace });
+                return StatusCode(500, new { message = e.Message, inner = e.InnerException?.Message, stackTrace = e.StackTrace });
             }
         }
         

@@ -6,6 +6,7 @@ using BookamApi.Dtos.Bus;
 using BookamApi.Interfaces;
 using BookamApi.Mappers;
 using BookamApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookamApi.Controllers
@@ -19,6 +20,7 @@ namespace BookamApi.Controllers
         {
             _busRepo = busRepo;
         }
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById ([FromRoute] int id)
         {
@@ -33,6 +35,8 @@ namespace BookamApi.Controllers
             }
             return Ok(bus.ToBusDto());
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<IActionResult> createBus ([FromBody] CreateBusDto createBusDto)
         {
@@ -46,6 +50,8 @@ namespace BookamApi.Controllers
 
             return CreatedAtAction(nameof(GetById), new {Id = bus.BusId}, bus.ToBusDto());
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<Bus>>> GetAll()
         {
@@ -58,6 +64,7 @@ namespace BookamApi.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("update/{id:int}")]
         public async Task<IActionResult> updateBus ([FromRoute] int id, [FromBody] UpdateBusDto updateBusDto)
         {
@@ -69,6 +76,7 @@ namespace BookamApi.Controllers
             return Ok(busModel.ToBusDto());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/{id:int}")]
         public async Task<IActionResult> deleteBus ([FromRoute] int id)
         {

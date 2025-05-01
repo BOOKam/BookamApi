@@ -13,6 +13,7 @@ namespace BookamApi.Services
 {
     public class TokenService : ITokenService
     {
+        
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
         public TokenService(IConfiguration config)
@@ -22,7 +23,7 @@ namespace BookamApi.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
 #pragma warning restore CS8604 // Possible null reference argument.
         }
-        public string CreateToken(User user)
+        public string CreateToken(User user, IList<String> roles)
         {
 #pragma warning disable CS8604 // Possible null reference argument.
             var claims = new List<Claim>
@@ -30,10 +31,14 @@ namespace BookamApi.Services
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.GivenName, user.UserName)
                 };
+                foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 #pragma warning restore CS8604 // Possible null reference argument.
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
-                var tokenDescriptor = new SecurityTokenDescriptor
+            var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
                     Expires = DateTime.Now.AddDays(7),
