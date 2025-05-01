@@ -13,7 +13,7 @@ namespace BookamApi.Controllers
 {
     [ApiController]
     [Route("api/bus")]
-    public class BusController : ControllerBase
+    public class BusController : BaseApiController
     {
         private readonly IBusRepository _busRepo;
         public BusController(IBusRepository busRepo)
@@ -26,14 +26,14 @@ namespace BookamApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return ErrorFromModelState(ModelState);
             }
             var bus = await _busRepo.GetByIdAsync(id);
             if (bus == null)
             {
-                return NotFound();
+                return Error("Busses Not Found", null, "404");
             }
-            return Ok(bus.ToBusDto());
+            return Success(bus.ToBusDto(), "Operation Successful");
         }
 
         [Authorize(Roles = "Admin")]
@@ -42,52 +42,53 @@ namespace BookamApi.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return ErrorFromModelState(ModelState);
             }
 
             var bus = createBusDto.ToCreateBusDto();
             await _busRepo.CreateAsync(bus);
 
-            return CreatedAtAction(nameof(GetById), new {Id = bus.BusId}, bus.ToBusDto());
+            return CreatedSuccess(nameof(GetById), new {Id = bus.BusId}, bus.ToBusDto(), "Bus Created Succesfully");
         }
 
         [Authorize(Roles = "Admin, User")]
         [HttpGet("getAll")]
-        public async Task<ActionResult<IEnumerable<Bus>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var buses = await _busRepo.GetAllAsync();
             if (buses == null)
             {
-                return BadRequest("You've not created any bus yet");
+                return Error("Busses Not Found", null, "404");
             }
-            return Ok(buses);
-
+            return Success(buses, "Operation Successful");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut("update/{id:int}")]
         public async Task<IActionResult> updateBus ([FromRoute] int id, [FromBody] UpdateBusDto updateBusDto)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return ErrorFromModelState(ModelState);
             
             var busModel = await _busRepo.UpdateAsync(id, updateBusDto);
 
-            if (busModel == null) return NotFound();
-            return Ok(busModel.ToBusDto());
+            if (busModel == null) return Error("Bus not found", null, "404");
+            return Success(busModel.ToBusDto(), "Bus Updated");
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("delete/{id:int}")]
         public async Task<IActionResult> deleteBus ([FromRoute] int id)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if(!ModelState.IsValid) return ErrorFromModelState(ModelState);
 
             var busModel = await _busRepo.DeleteAsync(id);
             if (busModel == null)
             {
-                return StatusCode(500, "Error deleting Bus");
+                return Error("Error Deleting Bus", null, "500");
             }
-            return Ok("bus deleted succesfull");
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            return Success(null, "Bus Deleted Succesfully");
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
     }
 }

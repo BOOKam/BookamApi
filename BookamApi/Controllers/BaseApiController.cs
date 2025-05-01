@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace BookamApi.Controllers
 {
     [ApiController]
     public class BaseApiController : ControllerBase
     {
-        protected IActionResult Success(object data, string message = "Operation successful")
+        protected IActionResult Success(object data, string message)
         {
             return Ok(new {
                 success = true,
@@ -17,6 +18,17 @@ namespace BookamApi.Controllers
                 message
             });
         }
+
+        protected IActionResult CreatedSuccess(string actionName, object routeValues, object data, string message)
+        {
+            return CreatedAtAction(actionName, routeValues, new
+            {
+                success = true,
+                data,
+                message
+            });
+        }
+
 
         protected IActionResult Error(string? errorMessage, Exception? e, string? code = "ERROR")
         {
@@ -27,6 +39,29 @@ namespace BookamApi.Controllers
                     message = errorMessage,
                     inner = e?.InnerException?.Message,
                     stackTrace = e?.StackTrace
+                }
+            });
+        }
+        protected IActionResult ErrorFromModelState(ModelStateDictionary modelState, string code = "VALIDATION_ERROR")
+        {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            var errors = modelState
+                .Where(x => x.Value?.Errors.Count > 0)
+                .Select(x => new
+                {
+                    field = x.Key,
+                    errors = x.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                }).ToArray();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+            return BadRequest(new
+            {
+                success = false,
+                error = new
+                {
+                    code,
+                    message = "Validation failed",
+                    details = errors
                 }
             });
         }

@@ -39,7 +39,7 @@ namespace BookamApi.Controllers
             {
                 if(!ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    return ErrorFromModelState(ModelState);
                 }
                 var admin = new User
                 {
@@ -58,25 +58,25 @@ namespace BookamApi.Controllers
                     {
                         // await SendConfirmationEmail(user.Email, user);
 #pragma warning disable CS8604 // Possible null reference argument.
-                        return Ok(
+                        return Success(
                             new NewUserDto
                             {
                                 Username = admin.UserName,
                                 Email = admin.Email,
                                 Token = _tokenService.CreateToken(admin, userRole)
-                            }
+                            }, "Admin Created Successfully"
                         );
 #pragma warning restore CS8604 // Possible null reference argument.
                     } else {
-                        return StatusCode(500, roleResult.Errors);
+                        return Error("Unable to create Admin", null, "500");
                     }
                 } else {
-                    return StatusCode(500, createAdmin.Errors);
+                    return Error("Unable to Create Admin", null, "500");
                 }
             }
             catch(Exception e)
             {
-                return StatusCode(500, new { message = e.Message, inner = e.InnerException?.Message, stackTrace = e.StackTrace });
+                return Error(null, e, "500");
             }
         }
 
@@ -86,7 +86,7 @@ namespace BookamApi.Controllers
             try {
                 if(!ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    return ErrorFromModelState(ModelState);
                 }
                 var user = new User
                 {
@@ -113,25 +113,25 @@ namespace BookamApi.Controllers
                     {
                         // await SendConfirmationEmail(user.Email, user);
 #pragma warning disable CS8604 // Possible null reference argument.
-                        return Ok(
+                        return Success(
                             new NewUserDto
                             {
                                 Username = user.UserName,
                                 Email = user.Email,
                                 Token = _tokenService.CreateToken(user, userRole)
-                            }
+                            }, "User Created"
                         );
 #pragma warning restore CS8604 // Possible null reference argument.
                     } else {
-                        return StatusCode(500, roleResult.Errors);
+                        return Error("Unable to create user", null, "500");
                     }
                 } else {
-                    return StatusCode(500, createuser.Errors);
+                    return Error("Unable to create user", null, "500");
                 }
 
             } catch(Exception e)
             {
-                return StatusCode(500, new { message = e.Message,inner = e.InnerException?.Message, stackTrace = e.StackTrace });
+                return Error(null, e, "500");
             }
         }
 
@@ -141,21 +141,21 @@ namespace BookamApi.Controllers
             try {
                 if(!ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    return ErrorFromModelState(ModelState);
                 }
 #pragma warning disable CS8604 // Possible null reference argument.
                 var user = await _userManager.FindByNameAsync(login.Username);
 #pragma warning restore CS8604 // Possible null reference argument.
                 if (user == null)
                 {
-                    return Error("Invalid Username or Password", null);
+                    return Error("Invalid Username or Password", null, "400");
                 }
 #pragma warning disable CS8604 // Possible null reference argument.
                 var result = await _signinManager.CheckPasswordSignInAsync(user, login.Password, false);
 #pragma warning restore CS8604 // Possible null reference argument.
                 if (!result.Succeeded)
                 {
-                    return Error("Invalid Username or Password", null);
+                    return Error("Invalid Username or Password", null, "400");
                 }
                 var userRole = (await _userManager.GetRolesAsync(user));
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -165,7 +165,7 @@ namespace BookamApi.Controllers
                         Username = user.UserName,
                         Email = user.Email,
                         Token = _tokenService.CreateToken(user, userRole)
-                    }
+                    }, "Login Successful"
                 );
 #pragma warning restore CS8604 // Possible null reference argument.
             } catch(Exception e)
