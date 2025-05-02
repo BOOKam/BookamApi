@@ -21,7 +21,7 @@ namespace BookamApi.Controllers
             _routeRepo = routeRepo;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<Routes>>> GetAll()
         {
