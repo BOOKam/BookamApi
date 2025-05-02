@@ -12,6 +12,7 @@ namespace BookamApi.Mappers
         public static DisplayUserProfile userProfile (this User user)
         {
             return new DisplayUserProfile{
+                UserName = user.UserName,
                 FullName = user.FullName,
                 Phone = user.Phone,
                 City = user.City,
