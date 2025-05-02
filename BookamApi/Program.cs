@@ -275,22 +275,7 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-// Use the CORS policy
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-//     string[] roles = new[] { "USER", "ADMIN" }; // Add more if needed
-
-//     foreach (var role in roles)
-//     {
-//         if (!await roleManager.RoleExistsAsync(role))
-//         {
-//             await roleManager.CreateAsync(new IdentityRole(role));
-//         }
-//     }
-// }
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

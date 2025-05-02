@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookamApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250429181652_Initial")]
-    partial class Initial
+    [Migration("20250502132752_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,9 +138,8 @@ namespace BookamApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Price")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -158,6 +157,14 @@ namespace BookamApi.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
@@ -168,6 +175,10 @@ namespace BookamApi.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -186,6 +197,10 @@ namespace BookamApi.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
@@ -195,12 +210,19 @@ namespace BookamApi.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -242,13 +264,13 @@ namespace BookamApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e14a8b9f-3932-400c-87da-8c6ee3d2f66f",
+                            Id = "6d4d2d70-1e07-4e60-aca7-daa0d21e3130",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2059ed78-9a04-4971-b5ce-00bebc2ea924",
+                            Id = "fa1b77c1-9ed4-4e99-b3fc-5baf86119b69",
                             Name = "User",
                             NormalizedName = "USER"
                         });

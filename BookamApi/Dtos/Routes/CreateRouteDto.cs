@@ -9,6 +9,6 @@ namespace BookamApi.Dtos.Routes
     {
         public string Origin {get; set;} = string.Empty;
         public string Destination {get; set;} = string.Empty;
-        public string Price {get; set;} = string.Empty;
+        public int Price {get; set;} 
     }
 }
