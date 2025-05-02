@@ -53,7 +53,7 @@ namespace BookamApi.Controllers
                 if (createAdmin.Succeeded)
                 {
                     var roleResult = await _userManager.AddToRoleAsync(admin, "Admin");
-                    var userRole = (await _userManager.GetRolesAsync(admin));
+                    var userRole = await _userManager.GetRolesAsync(admin);
                     if (roleResult.Succeeded)
                     {
                         // await SendConfirmationEmail(user.Email, user);
@@ -103,7 +103,7 @@ namespace BookamApi.Controllers
                 if (createuser.Succeeded)
                 {
                     var roleResult = await _userManager.AddToRoleAsync(user, "User");
-                    var userRole = (await _userManager.GetRolesAsync(user));
+                    var userRole = await _userManager.GetRolesAsync(user);
 
                     /**
                     * i might need to add email verification here
@@ -157,7 +157,7 @@ namespace BookamApi.Controllers
                 {
                     return Error("Invalid Username or Password", null, "400");
                 }
-                var userRole = (await _userManager.GetRolesAsync(user));
+                var userRole = await _userManager.GetRolesAsync(user);
 #pragma warning disable CS8604 // Possible null reference argument.
                 return Success(
                     new NewUserDto
