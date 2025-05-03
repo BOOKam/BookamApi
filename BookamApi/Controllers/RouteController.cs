@@ -21,14 +21,14 @@ namespace BookamApi.Controllers
             _routeRepo = routeRepo;
         }
 
-        [Authorize(Roles = "Admin, User")]
+        // [Authorize(Roles = "Admin, User")]
         [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<Routes>>> GetAll()
         {
             return await _routeRepo.GetAllRoutesAsync();
         }
 
-        [Authorize(Roles = "Admin, User")]
+        // [Authorize(Roles = "Admin, User")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById ([FromRoute] int id)
         {
@@ -38,7 +38,7 @@ namespace BookamApi.Controllers
             return Success(route.ToRouteDto(), "Operation Successful");
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<IActionResult> createRoute([FromBody] CreateRouteDto create)
         {
@@ -48,7 +48,7 @@ namespace BookamApi.Controllers
 
             return CreatedSuccess(nameof(GetById), new {Id = route.RouteId}, route.ToRouteDto(), "Route Created Successfully");
         }
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpPut("update/{id:int}")]
         public async Task<IActionResult> updateRoute ([FromRoute] int id, [FromBody] UpdateRouteDto update)
         {
@@ -58,7 +58,7 @@ namespace BookamApi.Controllers
             return Success(routeModel.ToRouteDto(), "Route Deleted Successfully");
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpDelete("delete/{id:int}")]
         public async Task<IActionResult> deleteRoute([FromRoute] int id)
         {
@@ -71,7 +71,7 @@ namespace BookamApi.Controllers
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpGet("search")]
         public async Task<IActionResult> searchRoute([FromQuery] string? Origin, [FromQuery] string? Destination)
         {

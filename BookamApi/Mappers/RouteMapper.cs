@@ -17,6 +17,10 @@ namespace BookamApi.Mappers
                 Origin = route.Origin,
                 Destination = route.Destination,
                 Price = route.Price,
+                Duration = route.Duration,
+                Image = route.Image,
+                Description = route.Description,
+                Distance = route.Distance,
                 Buses = route.Buses.Select(c => c.ToBusDto()).ToList()
             };
         }
@@ -27,6 +31,10 @@ namespace BookamApi.Mappers
                 Origin = createRoute.Origin,
                 Destination = createRoute.Destination,
                 Price = createRoute.Price,
+                Duration = createRoute.Duration,
+                Image = createRoute.Image,
+                Description = createRoute.Description,
+                Distance = createRoute.Distance,
                 CreatedAt = DateTime.UtcNow
             };
         }

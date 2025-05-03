@@ -71,6 +71,10 @@ namespace BookamApi.Repositories
             route.Origin = updateRouteDto.Origin;
             route.Destination = updateRouteDto.Destination;
             route.Price = updateRouteDto.Price;
+            route.Duration = updateRouteDto.Duration;
+            route.Description = updateRouteDto.Description;
+            route.Image = updateRouteDto.Image;
+            route.Distance = updateRouteDto.Distance;
             route.UpdatedAt = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();

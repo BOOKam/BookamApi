@@ -11,6 +11,7 @@ namespace BookamApi.Mappers
     {
         public static DisplayUserProfile userProfile (this User user)
         {
+#pragma warning disable CS8601 // Possible null reference assignment.
             return new DisplayUserProfile{
                 UserName = user.UserName,
                 FullName = user.FullName,
@@ -20,6 +21,7 @@ namespace BookamApi.Mappers
                 Address = user.Address,
                 State = user.State
             };
+#pragma warning restore CS8601 // Possible null reference assignment.
         }
 
         public static User ToCreateUserProfileDto (this CreateUserProfileDto create)
