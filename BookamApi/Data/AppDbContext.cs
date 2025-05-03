@@ -37,6 +37,10 @@ namespace BookamApi.Data
                 }
             };
             builder.Entity<IdentityRole>().HasData(role);
+            builder.Entity<Bus>()
+                .HasOne(b => b.routes)
+                .WithMany(r => r.Buses)
+                .HasForeignKey(b => b.RouteId);
             }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
