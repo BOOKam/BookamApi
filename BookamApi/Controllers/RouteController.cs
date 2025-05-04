@@ -49,13 +49,13 @@ namespace BookamApi.Controllers
             return CreatedSuccess(nameof(GetById), new {Id = route.RouteId}, route.ToRouteDto(), "Route Created Successfully");
         }
         // [Authorize(Roles = "Admin")]
-        [HttpPut("update/{id:int}")]
+        [HttpPatch("update/{id:int}")]
         public async Task<IActionResult> updateRoute ([FromRoute] int id, [FromBody] UpdateRouteDto update)
         {
             if (!ModelState.IsValid) return ErrorFromModelState(ModelState);
             var routeModel = await _routeRepo.UpdateAsync(id, update);
             if (routeModel == null) return Error("Route Not Found", null, "404");
-            return Success(routeModel.ToRouteDto(), "Route Deleted Successfully");
+            return Success(routeModel.ToRouteDto(), "Route Updated Successfully");
         }
 
         // [Authorize(Roles = "Admin")]

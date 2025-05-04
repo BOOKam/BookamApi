@@ -58,7 +58,7 @@ namespace BookamApi.Controllers
         }
 
         [Authorize(Roles = "Admin, User")]
-        [HttpPut("profile/{username?}")]
+        [HttpPatch("profile/{username?}")]
         public async Task<IActionResult> updateProfile(string? username, [FromBody] UpdateUserProfile update )
         {
             var currentUsername = User.GetUsername();

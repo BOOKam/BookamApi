@@ -64,7 +64,7 @@ namespace BookamApi.Controllers
         }
 
         // [Authorize(Roles = "Admin")]
-        [HttpPut("update/{id:int}")]
+        [HttpPatch("update/{id:int}")]
         public async Task<IActionResult> updateBus ([FromRoute] int id, [FromBody] UpdateBusDto updateBusDto)
         {
             if (!ModelState.IsValid) return ErrorFromModelState(ModelState);

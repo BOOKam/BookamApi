@@ -13,6 +13,7 @@ namespace BookamApi.Mappers
 {
     return new Bus {
         BusNumber = createBusDto.BusNumber,
+        BusModel = createBusDto.BusModel,
         Capacity = createBusDto.Capacity,
         RouteId = createBusDto.RouteId,
         DepartureTime = createBusDto.DepartureTime,
@@ -27,7 +28,10 @@ namespace BookamApi.Mappers
                 Capacity = busDto.Capacity,
                 DepartureTime = busDto.DepartureTime,
                 ArrivalTime = busDto.ArrivalTime,
-                RouteId = busDto.RouteId
+                RouteId = busDto.RouteId,
+                SeatsRemaining = busDto.SeatsRemaining,
+                AvailableSeats = busDto.AvailableSeats,
+                BookedSeats = busDto.BookedSeats
             };
         }
     }

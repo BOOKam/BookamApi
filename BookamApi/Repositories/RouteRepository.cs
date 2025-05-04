@@ -68,13 +68,28 @@ namespace BookamApi.Repositories
             var route = await _context.Routes.FirstOrDefaultAsync(x => x.RouteId == id);
             if (route == null) return null;
 
-            route.Origin = updateRouteDto.Origin;
-            route.Destination = updateRouteDto.Destination;
-            route.Price = updateRouteDto.Price;
-            route.Duration = updateRouteDto.Duration;
-            route.Description = updateRouteDto.Description;
-            route.Image = updateRouteDto.Image;
-            route.Distance = updateRouteDto.Distance;
+            if (!string.IsNullOrWhiteSpace(updateRouteDto.Origin))
+                route.Origin = updateRouteDto.Origin;
+                
+            if (!string.IsNullOrWhiteSpace(updateRouteDto.Destination))
+                route.Destination = updateRouteDto.Destination;
+                
+            if (updateRouteDto.Price != default)
+                route.Price = updateRouteDto.Price;
+                
+            if (updateRouteDto.Duration != default)
+                route.Duration = updateRouteDto.Duration;
+                
+            if (updateRouteDto.Description != null)
+                route.Description = updateRouteDto.Description;
+                
+            if (updateRouteDto.Image != null)
+                route.Image = updateRouteDto.Image;
+                
+            if (updateRouteDto.Distance != default)
+                route.Distance = updateRouteDto.Distance;
+                
+            // Always update the timestamp when a record is modified
             route.UpdatedAt = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();

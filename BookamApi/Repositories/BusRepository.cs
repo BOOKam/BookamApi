@@ -22,6 +22,12 @@ namespace BookamApi.Repositories
         public async Task<Bus> CreateAsync(Bus busModel)
         {
             await _context.Bus.AddAsync(busModel);
+            // Generate FreeSeats based on capacity
+            busModel.AvailableSeats = Enumerable.Range(1, busModel.Capacity).ToList();
+
+            busModel.SeatsRemaining = busModel.AvailableSeats.Count();
+            // Optionally initialize BookedSeats as empty
+            busModel.BookedSeats = new List<int>();
             await _context.SaveChangesAsync();
             return busModel;
             
@@ -52,11 +58,20 @@ namespace BookamApi.Repositories
             var bus = await _context.Bus.FirstOrDefaultAsync( x => x.BusId == id);
 
             if (bus == null) return null;
-            bus.BusNumber = updateBusDto.BusNumber;
-            bus.ArrivalTime = updateBusDto.ArrivalTime;
-            bus.DepartureTime = updateBusDto.DepartureTime;
-            bus.Capacity = updateBusDto.Capacity;
-            bus.RouteId = updateBusDto.RouteId;
+            if (!string.IsNullOrWhiteSpace(updateBusDto.BusNumber))
+                bus.BusNumber = updateBusDto.BusNumber;
+        
+            if (updateBusDto.ArrivalTime != default)
+                bus.ArrivalTime = updateBusDto.ArrivalTime;
+                
+            if (updateBusDto.DepartureTime != default)
+                bus.DepartureTime = updateBusDto.DepartureTime;
+                
+            if (updateBusDto.Capacity != default)
+                bus.Capacity = updateBusDto.Capacity;
+                
+            if (updateBusDto.RouteId != default)
+                bus.RouteId = updateBusDto.RouteId;
 
             await _context.SaveChangesAsync();
             return bus;

@@ -12,8 +12,12 @@ namespace BookamApi.Dtos.Bus
         [Required]
         public int RouteId {get; set;}
         public string BusNumber { get; set;} = string.Empty;
+        public string BusModel {get; set;} = string.Empty;
         [Required]
         public int Capacity { get; set;}
+        public int SeatsRemaining { get; set; }
+        public List<int> BookedSeats {get; set;} =  new();
+        public List<int> AvailableSeats {get; set; } = new();
         [Required]
         public DateTime DepartureTime {get; set;}
         [Required]

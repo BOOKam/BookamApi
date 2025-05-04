@@ -46,12 +46,23 @@ namespace BookamApi.Repositories
 #pragma warning restore CS8604 // Possible null reference argument.
             if (user == null) return null;
 
-            user.FullName = update.FullName;
-            user.Phone = update.Phone;
-            user.City = update.City;
-            user.ZipCode = update.ZipCode;
-            user.Address = update.Address;
-            user.State = update.State;
+            if (!string.IsNullOrWhiteSpace(update.FullName))
+                user.FullName = update.FullName;
+    
+            if (!string.IsNullOrWhiteSpace(update.Phone))
+                user.Phone = update.Phone;
+                
+            if (!string.IsNullOrWhiteSpace(update.City))
+                user.City = update.City;
+                
+            if (update.ZipCode != default)
+                user.ZipCode = update.ZipCode;
+                
+            if (!string.IsNullOrWhiteSpace(update.Address))
+                user.Address = update.Address;
+                
+            if (!string.IsNullOrWhiteSpace(update.State))
+                user.State = update.State;
 
             await _userManager.UpdateAsync(user);
 
