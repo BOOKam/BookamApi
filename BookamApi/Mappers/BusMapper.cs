@@ -34,5 +34,13 @@ namespace BookamApi.Mappers
                 BookedSeats = busDto.BookedSeats
             };
         }
+
+        public static BookBusDto ToBookBusDto (this Bus busdto)
+        {
+            return new BookBusDto {
+                BusNumber = busdto.BusNumber,
+                BusModel = busdto.BusModel,
+            };
+        }
     }
 }

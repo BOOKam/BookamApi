@@ -35,5 +35,15 @@ namespace BookamApi.Mappers
                 State = create.State
             };
         }
+        public static BookUserDto ToBookUserDto (this User user)
+        {
+#pragma warning disable CS8601 // Possible null reference assignment.
+            return new BookUserDto{
+                UserName = user.UserName,
+                FullName = user.FullName,
+                Phone = user.Phone
+            };
+#pragma warning restore CS8601 // Possible null reference assignment.
+        }
     }
 }

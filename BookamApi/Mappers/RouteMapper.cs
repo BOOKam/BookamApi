@@ -38,5 +38,14 @@ namespace BookamApi.Mappers
                 CreatedAt = DateTime.UtcNow
             };
         }
+        public static BookRouteDto ToBookRouteDto(this Routes route)
+        {
+            return new BookRouteDto{
+                Origin = route.Origin,
+                Destination = route.Destination,
+                Duration = route.Duration,
+                Description = route.Description
+            };
+        }
     }
 }

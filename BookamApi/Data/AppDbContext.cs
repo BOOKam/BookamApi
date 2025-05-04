@@ -41,6 +41,24 @@ namespace BookamApi.Data
                 .HasOne(b => b.routes)
                 .WithMany(r => r.Buses)
                 .HasForeignKey(b => b.RouteId);
+            builder.Entity<Booking>()
+                .HasOne(b => b.user)
+                .WithMany()
+                .HasForeignKey(b => b.UserId)
+                .IsRequired();
+
+            builder.Entity<Booking>()
+                .HasOne(b => b.bus)
+                .WithMany()
+                .HasForeignKey(b => b.BusId)
+                .IsRequired(); 
+
+            builder.Entity<Booking>()
+                .HasOne(b => b.route)
+                .WithMany()
+                .HasForeignKey(b => b.RouteId)
+                .IsRequired();
+
             }
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
