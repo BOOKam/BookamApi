@@ -24,7 +24,7 @@ namespace BookamApi.Controllers
             _userManager = userManager;
             _userRepo = userRepo;
         }
-       [Authorize(Roles = "Admin,User")]
+    //    [Authorize(Roles = "Admin,User")]
         [HttpDelete("delete/{username?}")]
         public async Task<IActionResult> DeleteUser(string? username)
         {
@@ -39,7 +39,7 @@ namespace BookamApi.Controllers
             return Success(user.userProfile(), $"User {username} deleted");
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -57,7 +57,7 @@ namespace BookamApi.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin, User")]
+        // [Authorize(Roles = "Admin, User")]
         [HttpPatch("profile/{username?}")]
         public async Task<IActionResult> updateProfile(string? username, [FromBody] UpdateUserProfile update )
         {

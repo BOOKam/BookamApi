@@ -13,6 +13,7 @@ namespace BookamApi.Mappers
         {
 #pragma warning disable CS8601 // Possible null reference assignment.
             return new DisplayUserProfile{
+                UserId = user.Id,
                 UserName = user.UserName,
                 FullName = user.FullName,
                 Phone = user.Phone,

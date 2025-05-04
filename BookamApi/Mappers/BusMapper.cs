@@ -24,6 +24,7 @@ namespace BookamApi.Mappers
         {
             return new BusDto {
                 BusId = busDto.BusId,
+                BusModel = busDto.BusModel,
                 BusNumber = busDto.BusNumber,
                 Capacity = busDto.Capacity,
                 DepartureTime = busDto.DepartureTime,
