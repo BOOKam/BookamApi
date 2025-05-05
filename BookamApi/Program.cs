@@ -61,7 +61,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontendClients", policy =>
     {
         policy
-            .WithOrigins("http://localhost:3000", "https://bookam-frontend.vercel.app/")
+            .WithOrigins("http://localhost:3000", "https://bookam-frontend.vercel.app/", "https://bookam-frontend.vercel.app")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
