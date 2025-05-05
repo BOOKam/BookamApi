@@ -58,11 +58,12 @@ builder.Services.AddSwaggerGen(option =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowFrontendClients", policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy
+            .WithOrigins("http://localhost:3000", "https://bookam-frontend.vercel.app/")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
@@ -137,7 +138,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontendClients");
 
 app.UseAuthentication();
 app.UseAuthorization();
