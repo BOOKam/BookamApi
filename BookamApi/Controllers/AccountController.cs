@@ -62,6 +62,7 @@ namespace BookamApi.Controllers
                             new NewUserDto
                             {
                                 Username = admin.UserName,
+                                UserId = admin.Id,
                                 Email = admin.Email,
                                 Token = _tokenService.CreateToken(admin, userRole)
                             }, "Admin Created Successfully"
@@ -117,6 +118,7 @@ namespace BookamApi.Controllers
                             new NewUserDto
                             {
                                 Username = user.UserName,
+                                UserId = user.Id,
                                 Email = user.Email,
                                 Token = _tokenService.CreateToken(user, userRole)
                             }, "User Created"
@@ -163,6 +165,7 @@ namespace BookamApi.Controllers
                     new NewUserDto
                     {
                         Username = user.UserName,
+                        UserId = user.Id,
                         Email = user.Email,
                         Token = _tokenService.CreateToken(user, userRole)
                     }, "Login Successful"

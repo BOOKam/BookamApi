@@ -19,7 +19,6 @@ namespace BookamApi.Data
             public DbSet<Payment> Payment {get; set;}
             public DbSet<Routes> Routes {get; set;}
             public DbSet<Bus> Bus {get; set;}
-
             protected override void OnModelCreating (ModelBuilder builder)
             {
                 base.OnModelCreating(builder);

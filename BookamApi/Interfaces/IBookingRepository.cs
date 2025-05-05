@@ -14,5 +14,6 @@ namespace BookamApi.Interfaces
         Task<Booking?> GetByIdAsync(int id);
         Task<Booking?> UpdateAsync(int id, UpdateBookingDto updateBookingDto);
         Task<Booking?> DeleteAsync(int id);
+        Task<Booking> checkIn(int id);
     }
 }

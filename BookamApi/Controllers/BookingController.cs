@@ -48,14 +48,28 @@ namespace BookamApi.Controllers
                 return Error("An error occurred while creating the booking", ex, "500");
             }
         }
-        [HttpPut("update/{id:int}")]
+        [HttpPatch("update/{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateBookingDto updateBookingDto)
         {
             if (!ModelState.IsValid) return ErrorFromModelState(ModelState);
             var booking = await _bookingRepo.UpdateAsync(id, updateBookingDto);
+            if (booking == null) return Error("Not Found", null, "404");
             return Success(booking.bookingDto(), "Operation Successful");
         }
-        // [HttpDelete("delete")]
-        // public async 
+        [HttpDelete("delete/{id:int}")]
+        public async Task<IActionResult> delete ([FromRoute] int id)
+        {
+            if (!ModelState.IsValid) return ErrorFromModelState(ModelState);
+            var book = await _bookingRepo.DeleteAsync(id);
+            if (book == null) return Error("Failed", null, null);
+            return Success(book, "Success");
+        }
+        [HttpPatch("{id:int}/checkin")]
+        public async Task<IActionResult> checkIn([FromRoute] int id)
+        {
+            var checkIn = await _bookingRepo.checkIn(id);
+            if (checkIn == null) return Error("Invalid BookId", null, "404");
+            return Success(checkIn.bookingDto(), "Operation Successful");
+        }
     }
 }

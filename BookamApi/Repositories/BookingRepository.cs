@@ -68,11 +68,23 @@ namespace BookamApi.Repositories
         {
             var booking = await _context.Booking.FirstOrDefaultAsync(x => x.BookingId == id);
             if (booking == null) return null;
-            booking.UserId = updateBookingDto.UserId;
-            booking.BusId = updateBookingDto.BusId;
-            booking.RouteId = updateBookingDto.RouteId;
-            booking.SeatNumber = updateBookingDto.SeatNumber;
+            
+            // Update only properties that are provided (not default)
+            if (updateBookingDto.UserId != default)
+                booking.UserId = updateBookingDto.UserId;
+                
+            if (updateBookingDto.BusId != default)
+                booking.BusId = updateBookingDto.BusId;
+                
+            if (updateBookingDto.RouteId != default)
+                booking.RouteId = updateBookingDto.RouteId;
+                
+            if (updateBookingDto.SeatNumber != default)
+                booking.SeatNumber = updateBookingDto.SeatNumber;
+            
+            // Note: BookingDate is always updated to current time when the booking is modified
             booking.BookingDate = DateTime.Now;
+            
             await _context.SaveChangesAsync();
             return booking;
         }
@@ -84,6 +96,16 @@ namespace BookamApi.Repositories
             _context.Booking.Remove(booking);
             await _context.SaveChangesAsync();
             return booking;
+        }
+
+        public async Task<Booking> checkIn(int id)
+        {
+            var book = await _context.Booking.FirstOrDefaultAsync(x => x.BookingId == id);
+            if (book ==  null) return null;
+            book.CheckedIn = true;
+            await _context.SaveChangesAsync();
+            return book;
+
         }
     }
 }
