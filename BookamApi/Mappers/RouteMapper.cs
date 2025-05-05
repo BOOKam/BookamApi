@@ -44,7 +44,8 @@ namespace BookamApi.Mappers
                 Origin = route.Origin,
                 Destination = route.Destination,
                 Duration = route.Duration,
-                Description = route.Description
+                Description = route.Description,
+                Price = route.Price
             };
         }
     }

@@ -11,5 +11,6 @@ namespace BookamApi.Dtos.Routes
         public string Destination {get; set;} = string.Empty;
         public string Duration {get; set;} = string.Empty;
         public string Description {get; set;} = string.Empty;
+        public int Price {get; set;} 
     }
 }

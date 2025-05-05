@@ -38,7 +38,7 @@ namespace BookamApi.Controllers
                     code,
                     message = errorMessage,
                     inner = e?.InnerException?.Message,
-                    stackTrace = e?.StackTrace
+                    // stackTrace = e?.StackTrace
                 }
             });
         }

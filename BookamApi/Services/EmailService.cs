@@ -51,7 +51,9 @@ namespace BookamApi.Services
             };
 
             // Create a MailAddress object with the sender's email and display name.
+#pragma warning disable CS8604 // Possible null reference argument.
             MailAddress fromAddress = new MailAddress(FromEmail, SenderName);
+#pragma warning restore CS8604 // Possible null reference argument.
 
             // Create a new MailMessage object to define the email's properties.
             MailMessage mailMessage = new MailMessage

@@ -101,7 +101,9 @@ namespace BookamApi.Repositories
         public async Task<Booking> checkIn(int id)
         {
             var book = await _context.Booking.FirstOrDefaultAsync(x => x.BookingId == id);
+#pragma warning disable CS8603 // Possible null reference return.
             if (book ==  null) return null;
+#pragma warning restore CS8603 // Possible null reference return.
             book.CheckedIn = true;
             await _context.SaveChangesAsync();
             return book;
