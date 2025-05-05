@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -42,6 +43,28 @@ namespace BookamApi.Controllers
                 }
             });
         }
+        protected IActionResult ErrorFromIdentityResult(IdentityResult result, string code = "IDENTITY_ERROR", string message = "Identity operation failed")
+        {
+            var details = result.Errors
+                .GroupBy(e => e.Code)
+                .Select(g => new
+                {
+                    field = g.Key,
+                    errors = g.Select(e => e.Description).ToArray()
+                }).ToArray();
+
+            return BadRequest(new
+            {
+                success = false,
+                error = new
+                {
+                    code,
+                    message,
+                    details
+                }
+            });
+        }
+
         protected IActionResult ErrorFromModelState(ModelStateDictionary modelState, string code = "VALIDATION_ERROR")
         {
 #pragma warning disable CS8602 // Dereference of a possibly null reference.

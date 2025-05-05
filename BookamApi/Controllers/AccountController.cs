@@ -69,10 +69,10 @@ namespace BookamApi.Controllers
                         );
 #pragma warning restore CS8604 // Possible null reference argument.
                     } else {
-                        return Error("Unable to create Admin", null, "500");
+                        return ErrorFromIdentityResult(roleResult, "Error!");
                     }
                 } else {
-                    return Error("Unable to Create Admin", null, "500");
+                    return ErrorFromIdentityResult(createAdmin, "Unable to create Admin");
                 }
             }
             catch(Exception e)
@@ -125,10 +125,10 @@ namespace BookamApi.Controllers
                         );
 #pragma warning restore CS8604 // Possible null reference argument.
                     } else {
-                        return Error("Unable to create user", null, "500");
+                        return ErrorFromIdentityResult(roleResult);
                     }
                 } else {
-                    return Error("Unable to create user", null, "500");
+                    return ErrorFromIdentityResult(createuser, "Unable to Create User");
                 }
 
             } catch(Exception e)
