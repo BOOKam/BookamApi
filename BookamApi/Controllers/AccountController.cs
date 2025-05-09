@@ -266,8 +266,4 @@ namespace BookamApi.Controllers
             }
         }
     }
-
-    public class ApiBaseController
-    {
-    }
 }
