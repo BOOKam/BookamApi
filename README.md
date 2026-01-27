@@ -42,7 +42,8 @@ BookamApi is a backend service that enables users to search for bus routes, view
   - Delete users (admin)
 
 - **Booking System**
-  - Booking management capabilities
+  - Create, view, update, and delete bookings
+  - Check-in functionality
 
 ## Getting Started
 
@@ -114,7 +115,7 @@ The API will be available at `http://localhost:5000` (or the configured port).
 | GET | `/api/route/getall` | Get all routes |
 | GET | `/api/route/{id}` | Get route by ID |
 | POST | `/api/route/create` | Create a new route |
-| PUT | `/api/route/update/{id}` | Update a route |
+| PATCH | `/api/route/update/{id}` | Update a route |
 | DELETE | `/api/route/delete/{id}` | Delete a route |
 | GET | `/api/route/search` | Search routes by origin/destination |
 
@@ -124,14 +125,24 @@ The API will be available at `http://localhost:5000` (or the configured port).
 | GET | `/api/bus/getAll` | Get all buses |
 | GET | `/api/bus/{id}` | Get bus by ID |
 | POST | `/api/bus/create` | Create a new bus |
-| PUT | `/api/bus/update/{id}` | Update a bus |
+| PATCH | `/api/bus/update/{id}` | Update a bus |
 | DELETE | `/api/bus/delete/{id}` | Delete a bus |
+
+### Bookings
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/booking/getall` | Get all bookings |
+| GET | `/api/booking/get/{id}` | Get booking by ID |
+| POST | `/api/booking/create` | Create a new booking |
+| PATCH | `/api/booking/update/{id}` | Update a booking |
+| DELETE | `/api/booking/delete/{id}` | Delete a booking |
+| PATCH | `/api/booking/{id}/checkin` | Check in for a booking |
 
 ### Users
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/user/all` | Get all users |
-| PUT | `/api/user/profile/{username}` | Update user profile |
+| PATCH | `/api/user/profile/{username}` | Update user profile |
 | DELETE | `/api/user/delete/{username}` | Delete a user |
 
 ## Project Structure
